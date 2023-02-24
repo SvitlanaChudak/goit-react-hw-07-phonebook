@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import { Toaster, toast } from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import { getContacts } from 'redux/selectors';
-import { addContact } from 'redux/contactsSlice';
+import { addContact } from 'redux/operations';
 
 const initialValues = {
         name: '',
@@ -17,6 +17,7 @@ const FormSchema = yup.object().shape({
   number: yup.string().min(7).max(14).required(),
 });
 
+  
 export const ContactForm = () => {
   const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
@@ -32,22 +33,6 @@ export const ContactForm = () => {
     toast.success('New contact successfully added');
     resetForm();
   }
-  
-  //     const formSubmit = ({ name, number }) => {
-  //   const contact = {
-  //     id: nanoid(),
-  //     name,
-  //     number,
-  //     };
-  //     const isExist = contacts.find(input =>
-  //       input.name.toLowerCase() === contact.name.toLowerCase() || input.number === contact.number);
-  //     if (isExist) {
-  //       alert(`${name} is already in contacts`)
-  //       return
-  //     }
-  //     setContacts([contact, ...contacts]);
-  //     toast.success('New contact successfully added');
-  // };
     
     return (
             <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={FormSchema}>
